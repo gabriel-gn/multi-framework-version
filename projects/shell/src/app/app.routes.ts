@@ -5,8 +5,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { startsWith, WebComponentWrapper, WebComponentWrapperOptions } from '@angular-architects/module-federation-tools';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-let URL = 'http://localhost:3000/remoteEntry.js';
-
 export const APP_ROUTES: Routes = [
     {
       path: '',
@@ -17,26 +15,47 @@ export const APP_ROUTES: Routes = [
     // Your route here:
 
     // Local usage
-    // {
-    //   path: 'flights',
-    //   loadChildren: () => {
-    //     return loadRemoteModule({
-    //       type: 'module',
-    //       remoteEntry: URL,
-    //       exposedModule: './Module'
-    //     })
-    //     .then(m => m.FlightsModule) }
-    // },
     {
       path: 'flights',
       loadChildren: () => {
         return loadRemoteModule({
           type: 'module',
-          remoteEntry: 'https://brave-glacier-0ffc18c10.azurestaticapps.net/remoteEntry.js',
+          remoteEntry: 'http://localhost:4205/remoteEntry.js',
           exposedModule: './Module'
         })
         .then(m => m.FlightsModule) }
     },
+  // {
+  //   path: 'decks',
+  //   loadChildren: () => {
+  //     return loadRemoteModule({
+  //       type: 'module',
+  //       remoteEntry: 'http://localhost:4201/remoteEntry.js',
+  //       exposedModule: './Module'
+  //     })
+  //       .then(m => m.RootModule) }
+  // },
+  {
+    matcher: startsWith('jobs'),
+    component: WebComponentWrapper,
+    data: {
+      type: 'script',
+      remoteEntry: 'http://localhost:4201/remoteEntry.js',
+      remoteName: 'jobs',
+      exposedModule: 'web-components',
+      elementName: 'jobs-element'
+    } as WebComponentWrapperOptions
+  },
+    // {
+    //   path: 'flights',
+    //   loadChildren: () => {
+    //     return loadRemoteModule({
+    //       type: 'module',
+    //       remoteEntry: 'https://brave-glacier-0ffc18c10.azurestaticapps.net/remoteEntry.js',
+    //       exposedModule: './Module'
+    //     })
+    //     .then(m => m.FlightsModule) }
+    // },
 
     {
       path: 'react',
@@ -47,8 +66,8 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'react-element'
       } as WebComponentWrapperOptions
-    },   
-    
+    },
+
     {
       path: 'angular1',
       component: WebComponentWrapper,
@@ -58,7 +77,7 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'angular1-element'
       } as WebComponentWrapperOptions
-    },    
+    },
 
     {
       path: 'angular2',
@@ -69,8 +88,8 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'angular2-element'
       } as WebComponentWrapperOptions
-    },   
-    
+    },
+
     {
       matcher: startsWith('angular3'),
       component: WebComponentWrapper,
@@ -81,7 +100,7 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'angular3-element'
       } as WebComponentWrapperOptions
-    }, 
+    },
     {
       path: 'vue',
       component: WebComponentWrapper,
@@ -91,8 +110,8 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'vue-element'
       } as WebComponentWrapperOptions
-    },  
-    
+    },
+
     {
       path: 'angularjs',
       component: WebComponentWrapper,
@@ -102,7 +121,7 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'angularjs-element'
       } as WebComponentWrapperOptions
-    },     
+    },
 
     {
       matcher: startsWith('angular3'),
@@ -113,7 +132,7 @@ export const APP_ROUTES: Routes = [
         exposedModule: './web-components',
         elementName: 'angular3-element'
       } as WebComponentWrapperOptions
-    }, 
+    },
 
     {
       path: 'dashboard',
